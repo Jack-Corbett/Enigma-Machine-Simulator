@@ -53,7 +53,7 @@ public class Menu {
         }
 
         //Rotors
-
+        System.out.println("This is a test");
 
         //Reflector
 
