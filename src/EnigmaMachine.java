@@ -4,30 +4,41 @@ public class EnigmaMachine {
     private BasicRotor[] rotorSlot;
     private Reflector reflector;
 
+    //Pass a settings object to apply it
     public EnigmaMachine() {
          plugboard = new Plugboard();
          rotorSlot = new BasicRotor[3];
     }
 
-    public void start() {
-        addPlug('b', 'c');
-        addPlug('r', 'i');
-        addPlug('s', 'm');
-        addPlug('a', 'f');
+    public String start(String message, EnigmaSetting settings) {
+        clearSettings();
 
-        addRotor(new BasicRotor("IV"), 0);
-        setPosition(0,23);
+        try {
+            //Plugs
+            for (int i = 0; i < settings.getNoOfPlugs(); i++) {
+                addPlug(settings.getPlugStart(i), settings.getPlugEnd(i));
+            }
 
-        addRotor(new BasicRotor("V"), 1);
-        setPosition(1,4);
 
-        addRotor(new BasicRotor("II"), 2);
-        setPosition(2,9);
+            //Rotors
+            for (int i = 0; i < 3; i++) {
+                int rotorKind = settings.getRotorKind(i);
+                if (rotorKind == 1) {
+                    addRotor(new TurnoverRotor(settings.getRotorType(i)), i);
+                } else if (rotorKind == 2) {
+                    addRotor(new BasicRotor(settings.getRotorType(i)), i);
+                }
 
-        reflector = new Reflector();
-        addReflector(reflector, "ReflectorII");
+                setPosition(i, settings.getStartingPosition(i));
+            }
 
-        String message = "GACIG";
+            //Reflector
+            reflector = new Reflector();
+            addReflector(reflector, settings.getReflectorType());
+        } catch (Exception e) {
+            System.err.println("The settings could not be applied");
+        }
+
         String output = "";
         message = message.toLowerCase();
         char[] messageArray = message.toCharArray();
@@ -36,10 +47,18 @@ public class EnigmaMachine {
             output += encodeLetter(c);
         }
 
-        System.out.println(output);
+        return output;
     }
 
-    public void addPlug(char start, char end) {
+    private void clearSettings() {
+        clearPlugboard();
+        reflector = null;
+        for (Rotor rotor : rotorSlot) {
+            rotor = null;
+        }
+    }
+
+    private void addPlug(char start, char end) {
         plugboard.addPlug(start, end);
     }
 
@@ -47,7 +66,7 @@ public class EnigmaMachine {
         plugboard.clear();
     }
 
-    public void addRotor(BasicRotor newRotor, int slot) {
+    private void addRotor(BasicRotor newRotor, int slot) {
         rotorSlot[slot] = newRotor;
     }
 
@@ -55,7 +74,7 @@ public class EnigmaMachine {
         return rotorSlot[slot];
     }
 
-    public void addReflector(Reflector reflector, String type) {
+    private void addReflector(Reflector reflector, String type) {
         reflector.initialise(type);
     }
 
@@ -63,11 +82,11 @@ public class EnigmaMachine {
         return reflector;
     }
 
-    public void setPosition(int slot, int position) {
+    private void setPosition(int slot, int position) {
         rotorSlot[slot].setPosition(position);
     }
 
-    public char encodeLetter(char letter) {
+    private char encodeLetter(char letter) {
         letter = plugboard.substitute(letter);
 
         int sub = charToInteger(letter);
@@ -89,12 +108,12 @@ public class EnigmaMachine {
         return letter;
     }
 
-    public Integer charToInteger(char inputChar) {
+    private Integer charToInteger(char inputChar) {
         int ascii = (int)inputChar;
         return (ascii - 97);
     }
 
-    public char integerToChar(int inputInt) {
+    private char integerToChar(int inputInt) {
         inputInt += 97;
         return (char)inputInt;
     }

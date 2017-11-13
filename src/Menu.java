@@ -7,69 +7,57 @@ public class Menu {
     public Menu() {
         int menuChoice;
 
-        displayTopMenu();
-        menuChoice = getInt();
+        while (true) {
+            displayTopMenu();
+            menuChoice = in.nextInt();
 
-        if (menuChoice == 1) {
-            getSettings();
-            EnigmaMachine enigmaMachine = new EnigmaMachine();
-            enigmaMachine.start();
-        } else {
-            System.exit(0);
+            if (menuChoice == 1) {
+                String message;
+                String encodedMessage;
+
+                EnigmaSetting settings = new EnigmaSetting();
+
+                EnigmaMachine enigmaMachine = new EnigmaMachine();
+
+                message = inputMessage();
+                System.out.println();
+
+                encodedMessage = enigmaMachine.start(message, settings);
+
+                System.out.println("The message is: " + encodedMessage);
+                System.out.println();
+
+            } else if (menuChoice == 2) {
+                EnigmaFile enigmaFile = new EnigmaFile();
+
+            } else {
+                System.exit(0);
+            }
         }
     }
 
-    public void displayTopMenu() {
+    private void displayTopMenu() {
         System.out.println("--------------------------------");
         System.out.println("    Enigma Machine Simulator    ");
         System.out.println("--------------------------------");
         System.out.println("          Jack Corbett          ");
         System.out.println();
-        System.out.println("Encode:");
-        System.out.println("    1. Input plain text and settings");
-        System.out.println("    2. Read plain text and settings from file");
         System.out.println("Decode:");
-        System.out.println("    3. Input cipher text and settings");
-        System.out.println("    4. Run the Bombe to find unknown settings");
-    }
-
-    //MOVE TO OBJECT and get this method to return the settings object
-    public void getSettings() {
-        //Plugs
-        int noOfPlugs;
-        System.out.println();
-        System.out.println("How many plugs do you want to add?");
-        noOfPlugs = getInt();
-
-        char[] plugStart = new char[noOfPlugs];
-        char[] plugEnd = new char[noOfPlugs];
-
-        for (int i = 0; i < noOfPlugs; i++) {
-            System.out.print("Enter the start of plug " + (i + 1) + ": ");
-            plugStart[i] = getChar();
-            System.out.print("Enter the end of plug " + (i + 1) + ": " );
-            plugEnd[i] = getChar();
-            System.out.println();
-        }
-
-        //Rotors
-        System.out.println("This is a test");
-
-        //Reflector
-
-
-    }
-
-
-
-    public int getInt() {
-        //Validate this!
+        System.out.println("    1. Input encoded message");
+        System.out.println("    2. Read encoded message from file");
+        System.out.println("    3. Run the Bombe to find unknown settings");
+        System.out.println("Encode:");
+        System.out.println("    4. Input plain text and settings");
         System.out.print("Input: ");
-        return in.nextInt();
     }
 
-    public char getChar() {
-        String input = in.next();
-        return input.charAt(0);
+    private String inputMessage() {
+        String message;
+        System.out.print("Enter the message to decode: ");
+        return in.next();
     }
+
+
+
+
 }

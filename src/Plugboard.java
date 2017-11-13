@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Plugboard {
 
-    private ArrayList<Plug> plugConnections = new ArrayList<Plug>();
+    private ArrayList<Plug> plugConnections = new ArrayList<>();
 
     //Instantiates a new plug and returns true if successful, removes the plug and returns false if it's inputs conflicted with others
     public Boolean addPlug(char end1, char end2) {

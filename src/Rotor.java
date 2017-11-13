@@ -26,7 +26,7 @@ abstract public class Rotor {
 
     //Overridden by child classes to setup the rotor
     public void initialise(String type) {
-
+        name = type;
     }
 
     //Overridden by child classes to return the output of the rotor for a given input
