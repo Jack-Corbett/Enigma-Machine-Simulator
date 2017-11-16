@@ -21,12 +21,19 @@ public class EnigmaMachine {
 
 
             //Rotors
-            for (int i = 0; i < 3; i++) {
+            for (int i = 2; i > -1; i--) {
                 int rotorKind = settings.getRotorKind(i);
                 if (rotorKind == 1) {
-                    addRotor(new TurnoverRotor(settings.getRotorType(i)), i);
-                } else if (rotorKind == 2) {
+
                     addRotor(new BasicRotor(settings.getRotorType(i)), i);
+
+                } else if (rotorKind == 2) {
+
+                    if (i == 2) {
+                        addRotor(new TurnoverRotor(settings.getRotorType(i)), i);
+                    } else {
+                        addRotor(new TurnoverRotor(settings.getRotorType(i), rotorSlot[i+1]), i);
+                    }
                 }
 
                 setPosition(i, settings.getStartingPosition(i));

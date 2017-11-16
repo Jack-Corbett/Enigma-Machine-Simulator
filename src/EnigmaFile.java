@@ -1,5 +1,3 @@
-import com.sun.istack.internal.Nullable;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
@@ -10,8 +8,8 @@ public class EnigmaFile {
         String message;
         String encodedMessage = null;
 
-        System.out.println("Reading encoded message from file...");
         System.out.println();
+        System.out.println("Reading encoded message from file...");
         //Read the message to encode
         message = readFromFile();
 
@@ -30,9 +28,8 @@ public class EnigmaFile {
         }
     }
 
-    @Nullable
     private String readFromFile() {
-        try(BufferedReader reader = new BufferedReader(new FileReader("Message.txt"))) {
+        try(BufferedReader reader = new BufferedReader(new FileReader("EncodedMessage.txt"))) {
             StringBuilder builder = new StringBuilder();
             String line = reader.readLine();
 
@@ -50,7 +47,7 @@ public class EnigmaFile {
     }
 
     private void writeToFile(String message) {
-        try (PrintWriter writer = new PrintWriter("EncodedMessage.txt", "UTF-8")) {
+        try (PrintWriter writer = new PrintWriter("Message.txt", "UTF-8")) {
             writer.println(message);
             writer.close();
         } catch (Exception e) {
