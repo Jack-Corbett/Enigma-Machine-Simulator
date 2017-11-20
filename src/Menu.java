@@ -1,10 +1,18 @@
 
 import java.util.Scanner;
 
+
+/**
+ * Outputs the simulator menu to the user
+ * Enabling them to chose whether to encode or decode a message
+ */
 public class Menu {
 
     private Scanner in = new Scanner(System.in);
 
+    /**
+     * Gets the users choice and runs the
+     */
     public Menu() {
         String message;
         String encodedMessage;
@@ -75,6 +83,7 @@ public class Menu {
             try {
                 System.out.print("Enter the message to " + option + ": ");
                 String input = in.next();
+                input = input.toLowerCase();
 
                 char[] characters = input.toCharArray();
 

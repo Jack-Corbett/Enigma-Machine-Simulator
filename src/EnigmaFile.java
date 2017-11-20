@@ -2,16 +2,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 
-public class EnigmaFile {
+/**
+ *
+ */
+class EnigmaFile {
 
-    public EnigmaFile() {
+    /**
+     *
+     */
+    EnigmaFile() {
         String message;
         String encodedMessage = null;
 
         System.out.println();
         System.out.println("Reading encoded message from file...");
-        //Read the message to encode
-        message = readFromFile();
+
+        message = readFromFile();   //Read the message to encode
 
         //If a message is returned instantiate an enigma machine and run the message through it
         if (message != null) {
@@ -28,8 +34,12 @@ public class EnigmaFile {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     private String readFromFile() {
-        try(BufferedReader reader = new BufferedReader(new FileReader("EncodedMessage.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("EncodedMessage.txt"))) {
             StringBuilder builder = new StringBuilder();
             String line = reader.readLine();
 
@@ -46,6 +56,10 @@ public class EnigmaFile {
         return null;
     }
 
+    /**
+     *
+     * @param message
+     */
     private void writeToFile(String message) {
         try (PrintWriter writer = new PrintWriter("Message.txt", "UTF-8")) {
             writer.println(message);

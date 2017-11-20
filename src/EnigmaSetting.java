@@ -18,6 +18,10 @@ public class EnigmaSetting {
     private String reflectorType;
 
     public EnigmaSetting() {
+        System.out.println();
+        System.out.println("             SETTINGS");
+        System.out.println();
+
         inputAllSettings();
     }
 
@@ -32,15 +36,16 @@ public class EnigmaSetting {
             setRotorPositionSettings();
             setReflectorSettings();
 
+        } else if (unknown.equals("RotorPosition")) {
+            setPlugboardSettings(false);
+            setRotorTypeSettings();
+            setReflectorSettings();
+
         } else if (unknown.equals("RotorType")) {
             setPlugboardSettings(false);
             setRotorPositionSettings();
             setReflectorSettings();
 
-        } else if (unknown.equals("RotorPosition")) {
-            setPlugboardSettings(false);
-            setRotorTypeSettings();
-            setReflectorSettings();
         }
     }
 
@@ -82,7 +87,7 @@ public class EnigmaSetting {
         setReflectorSettings();
     }
 
-    private void setPlugboardSettings(Boolean unknown) {
+    private void setPlugboardSettings(Boolean unknownPlugEnds) {
         //Plugs
         System.out.println("----------- Plugboard ------------");
         System.out.println();
@@ -97,7 +102,7 @@ public class EnigmaSetting {
         for (int i = 0; i < noOfPlugs; i++) {
             System.out.print("Enter the start of plug " + (i + 1) + ": ");
             plugStart[i] = getChar();
-            if (!unknown) {
+            if (!unknownPlugEnds) {
                 System.out.print("Enter the end of plug " + (i + 1) + ": " );
                 plugEnd[i] = getChar();
             }
@@ -131,6 +136,11 @@ public class EnigmaSetting {
         }
     }
 
+    public void setRotorType(int slot, String type) {
+        rotorType[slot] = type;
+        rotorKind[slot] = 1;
+    }
+
     private void setRotorPositionSettings() {
 
         System.out.println("-------- Rotor Positions ---------");
@@ -141,6 +151,10 @@ public class EnigmaSetting {
             System.out.print("Rotor " + (i+1) + ": ");
             startingPosition[i] = getInt();
         }
+    }
+
+    public void setRotorPosition(int slot, int position) {
+        startingPosition[slot] = position;
     }
 
     private void setReflectorSettings() {
@@ -154,11 +168,6 @@ public class EnigmaSetting {
         reflectorType = "Reflector" + getString(1);
         System.out.println();
     }
-
-
-
-
-
 
     private int getInt() {
         while (true) try {
