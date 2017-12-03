@@ -1,0 +1,58 @@
+Enigma Machine Simulator - Jack Corbett
+
+I have completed all core parts of the coursework getting the following results:
+
+Part 5:
+    Test 1: badger
+    Test 2: snake
+
+Part 6: (Tested reading GACIG from InputMessage.txt which wrote snake to the OutputMessage.txt file)
+
+Part 7:
+    Test 3: thequickbrownfoxjumpedoverthelazydog
+
+Part 8:
+    Challenge 1: daisydaisygivemeyouranswerdo
+
+                 However there were many others including the word 'answer':
+                 tsisytassygivemfyouranswerto
+                 The plugs were: d,b s,a
+                 taisytaisygivemeyoumanswerto
+                 The plugs were: d,c s,a
+                 taisytaisydivemeyouranswerto
+                 The plugs were: d,g s,a
+                 taisytaisygivemeyouranswerto
+                 The plugs were: d,h s,a
+                 tadsytadsygdvemeyouranswerts
+                 The plugs were: d,i s,a
+                 taisytaisygivemeyouranswerto
+                 The plugs were: d,k s,a
+                 taisytaisygivemeyotranswerto
+                 The plugs were: d,l s,a
+                 taisytaisygivedeyouranswerto
+                 The plugs were: d,m s,a
+                 taisytaisygiveseyduranswertd
+                 The plugs were: d,o s,a
+
+                 daisydaisygivemeyouranswerdo
+                 The plugs were: d,t s,a
+
+                 taisytaisygivnmeyodranswerto
+                 The plugs were: d,u s,a
+                 taisyiaisygbdemeyouranswerto
+                 The plugs were: d,v s,a
+                 taisytaisygivemesouranswerto
+                 The plugs were: d,x s,a
+                 tatsytaisygivemeyouranswerto
+                 The plugs were: d,z s,a
+
+    Challenge 2: wellalwaysbetogetherhoweverfaritseemswellalwaysbetogethertogetherinelectricdreams
+                 The starting positions were: 3, 9, 15
+
+    Challenge 3: ilovecoffeeiloveteailovethejavajiveanditlovesme
+                 The rotor types were: V, III, II
+
+I also extended the code by adding a command line interface for all aspects of the code including the Bombe by using a new class called EnigmaSetting to store the machines settings.
+They are applied when the start method is called on the Enigma Machine meaning you can use one Enigma Machine object and just change the settings each time for the Bombe.
+Although this added some overhead when applying settings rather than changing individual settings, it made it much easier to take user input in a structured manner and dramatically cleaned up the Bombe's setting testing code.
+This approach also enabled strict validation of the user input using casting, condition statements and exceptions to limit the chance of the program crashing for an erroneous accidental input.

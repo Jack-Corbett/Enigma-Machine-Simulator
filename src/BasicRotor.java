@@ -17,6 +17,7 @@ class BasicRotor extends Rotor {
 
         super.initialise(type);     //Calls initialise to set the Rotor name
 
+        //Set the mapping of the rotor determined by the rotor type
         switch (type) {
             case "I":
                 mapping = I;
@@ -59,7 +60,7 @@ class BasicRotor extends Rotor {
         Integer[] inverseMapping = new Integer[ROTORSIZE];
         int position;
 
-        /* Loop through the mapping array to create an inverse map */
+        // Loop through the mapping array to create an inverse map
         for (int i = 0; i < ROTORSIZE; i++) {
             position = mapping[i];
             inverseMapping[position] = i;
@@ -70,7 +71,7 @@ class BasicRotor extends Rotor {
 
     /**
      * Performs the mapping process from an input to a new output.
-     * @param mapping The array used for mapping
+     * @param mapping The array used for mapping.
      * @param input An integer that represents the character being mapped. (0 - 25)
      * @return mapping result as an integer
      */
@@ -78,18 +79,31 @@ class BasicRotor extends Rotor {
         int currentPosition = getPosition();
         int newPosition;
 
+        //If the current position is 0 use the mapping as is
         if (currentPosition == 0) {
             newPosition = mapping[input];
+
+        /* If it isn't 0, take away the current position from the input before mapping.
+         *
+         * If the input minus the current position is less than 0 then calculate the difference
+         * between the current position and the input and subtract that from the rotor size (26)
+         * before performing the mapping. */
         } else if (input - currentPosition < 0) {
             int difference;
             difference = currentPosition - input;
             input = ROTORSIZE - difference;
             newPosition = mapping[input];
+
+        /* If the input minus the current position is greater than 0 then perform the subtraction
+           and then the mapping. */
         } else {
             input -= currentPosition;
             newPosition = mapping[input];
         }
 
+        /* After performing the mapping add the current position to the result.
+         * If this is larger than the rotor size - 1 then take away the rotor size from the result.
+         * Otherwise just perform the addition. */
         if (newPosition + currentPosition > ROTORSIZE - 1) {
             return (newPosition + currentPosition) - ROTORSIZE;
         } else {
@@ -101,7 +115,9 @@ class BasicRotor extends Rotor {
      * Rotates the rotor by one position.
      */
     public void rotate() {
+        // Increment the rotor position position
         int newPosition = getPosition() + 1;
+        // If it has reached the size of the rotor reset it to 0
         if (newPosition == ROTORSIZE) {
             setPosition(0);
         } else {
