@@ -100,8 +100,8 @@ class EnigmaMachine {
     private void clearSettings() {
         clearPlugboard();
         reflector = null;
-        for (Rotor rotor : rotorSlot) {
-            rotor = null;
+        for (int i = 0; i < 3; i++) {
+            rotorSlot[i] = null;
         }
     }
 
