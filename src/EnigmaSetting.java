@@ -318,7 +318,7 @@ class EnigmaSetting {
     }
 
     /**
-     * @param type Dictates the choices. 0 = Rotor selection (I-V) 1 = Reflector selection ()
+     * @param type Dictates the choices. 0 = Rotor selection (I-V) 1 = Reflector selection (I-II)
      * @return A string abiding by the rules set out above.
      */
     private String getString(int type) {

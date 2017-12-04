@@ -14,7 +14,7 @@ class Plug {
      * @param plugEnd1 Start of the plug.
      * @param plugEnd2 End of the plug.
      */
-    public Plug(char plugEnd1, char plugEnd2) {
+    Plug(char plugEnd1, char plugEnd2) {
         setEnd1(plugEnd1);
         setEnd2(plugEnd2);
     }
@@ -22,28 +22,28 @@ class Plug {
     /**
      * @return The first end of the plug.
      */
-    public char getEnd1() {
+    private char getEnd1() {
         return end1;
     }
 
     /**
      * @return The second end of the plug.
      */
-    public char getEnd2() {
+    private char getEnd2() {
         return end2;
     }
 
     /**
      * @param plugEnd1 the first end of the plug.
      */
-    public void setEnd1(char plugEnd1) {
+    private void setEnd1(char plugEnd1) {
         end1 = plugEnd1;
     }
 
     /**
      * @param plugEnd2 the second end of the plug
      */
-    public void setEnd2(char plugEnd2) {
+    private void setEnd2(char plugEnd2) {
         end2 = plugEnd2;
     }
 
@@ -56,11 +56,11 @@ class Plug {
      * @param letterIn The input character.
      * @return letterIn if the plug is not connected or the other character connected to the plug.
      */
-    public char encode(char letterIn) {
-        if (letterIn == end1) {
-            return end2;
-        } else if (letterIn == end2) {
-            return end1;
+    char encode(char letterIn) {
+        if (letterIn == getEnd1()) {
+            return getEnd2();
+        } else if (letterIn == getEnd2()) {
+            return getEnd1();
         } else {
             return letterIn;
         }
@@ -71,16 +71,12 @@ class Plug {
      * @param plugin Plug object to test against.
      * @return True if either of the plug sockets are shared, false otherwise
      */
-    public Boolean clashesWith(Plug plugin) {
-        //Get the character of the new plugs ends
+    Boolean clashesWith(Plug plugin) {
+        // Get the character of the new plugs ends
         char newEnd1 = plugin.getEnd1();
         char newEnd2 = plugin.getEnd2();
 
-        //Check if they are the same as the end points of this plug
-        if (newEnd1 == end1 || newEnd1 == end2 || newEnd2 == end1 || newEnd2 == end2) {
-            return true;
-        } else {
-            return false;
-        }
+        // Return true if they are the same as the end points of this plug, false otherwise.
+        return newEnd1 == end1 || newEnd1 == end2 || newEnd2 == end1 || newEnd2 == end2;
     }
 }

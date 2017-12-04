@@ -45,7 +45,7 @@ class Menu {
             } else if (menuChoice == 2) {
 
                 // Instantiate an enigma file object which handles: reading, decoding and writing
-                EnigmaFile enigmaFile = new EnigmaFile();
+                new EnigmaFile();
 
             // BOMBE
             } else if (menuChoice == 3) {
@@ -53,7 +53,7 @@ class Menu {
                 System.out.println();
 
                 // Instantiate a Bombe to find unknown settings
-                Bombe bombe = new Bombe(message);
+                new Bombe(message);
 
             } else if (menuChoice == 4) {
                 System.exit(0);

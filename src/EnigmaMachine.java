@@ -27,8 +27,8 @@ class EnigmaMachine {
      * @return Encoded message as a string.
      */
     String start(String message, EnigmaSetting settings) {
-        /* Remove the current settings including: plugs, rotors and the reflector.
-           As this method can be called many times on the same object. */
+        /* Remove the current settings including: plugs, rotors and the reflector to ensure there are no conflicts,
+           as this method can be called many times on the same object. */
         clearSettings();
 
         try {

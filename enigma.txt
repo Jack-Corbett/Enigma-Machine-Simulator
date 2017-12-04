@@ -52,7 +52,7 @@ Part 8:
     Challenge 3: ilovecoffeeiloveteailovethejavajiveanditlovesme
                  The rotor types were: V, III, II
 
-I also extended the code by adding a command line interface for all aspects of the code including the Bombe by using a new class called EnigmaSetting to store the machines settings.
+I also extended the code by adding a command line interface for all aspects of the simulator including the Bombe by using a new class called EnigmaSetting to store the machines settings.
 They are applied when the start method is called on the Enigma Machine meaning you can use one Enigma Machine object and just change the settings each time for the Bombe.
 Although this added some overhead when applying settings rather than changing individual settings, it made it much easier to take user input in a structured manner and dramatically cleaned up the Bombe's setting testing code.
 This approach also enabled strict validation of the user input using casting, condition statements and exceptions to limit the chance of the program crashing for an erroneous accidental input.

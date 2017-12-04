@@ -8,6 +8,6 @@ public class Main {
      */
 
     public static void main(String[] args) {
-        Menu menu = new Menu();         //Cold start the program
+        new Menu();         //Cold start the program
     }
 }
