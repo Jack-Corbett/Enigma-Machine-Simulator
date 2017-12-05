@@ -70,8 +70,7 @@ class EnigmaMachine {
 
             /* REFLECTOR
                Instantiate a new reflector and fetch it's type to dictate it's mapping. */
-            reflector = new Reflector();
-            addReflector(reflector, settings.getReflectorType());
+            addReflector(settings.getReflectorType());
 
         } catch (Exception e) {
             System.err.println("Error: The settings could not be applied.");
@@ -147,11 +146,10 @@ class EnigmaMachine {
 
     /**
      * Adds a reflector to the machine by calling the initialise method.
-     * @param reflector The reflector object.
      * @param type The type which determines the mapping.
      */
-    private void addReflector(Reflector reflector, String type) {
-        reflector.initialise(type);
+    private void addReflector(String type) {
+        reflector = new Reflector(type);
     }
 
     /**

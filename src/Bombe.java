@@ -55,7 +55,7 @@ class Bombe {
         System.out.println("------------- BOMBE -------------");
         System.out.println();
         System.out.println("Which settings are unknown?");
-        System.out.println("1. The ends of two plugs");
+        System.out.println("1. The ends of up to three plugs");
         System.out.println("2. Rotor starting positions");
         System.out.println("3. Rotor types");
         System.out.print("Input: ");
@@ -74,58 +74,93 @@ class Bombe {
         int noOfPlugs = setting.getNoOfPlugs();
 
         // Create a new array to store the starts of each plug which the user inputted
-        int[] start = new int[noOfPlugs];
+        int[] start = new int[3];
 
         // Add the start of the plugs to an array so we don't check plugboard slots that are already used
         for (int i = 0; i < noOfPlugs; i++) {
             start[i] = (int) setting.getPlugStart(i);
         }
 
-        System.out.println("Results (multiple):");
+        System.out.println("Results:");
 
-        /* Two for loops loop through every combination of end points for the two plugs.
+        /* Three for loops loop through every combination of end points for up to three plugs.
+         * If less than three plugs are used the appropriate sections of code are skipped.
          * Count from 97 to 122 which represent a to z in ASCII codes. */
         for (int i = 97; i < 123; i++) {
             // If the plugboard slot is not already taken
-            if (start[0] != i && start[1] != i) {
+            if (start[0] != i && start[1] != i && start[2] != i) {
 
                 // Set the plug end of the first plug to character represented by i
                 setting.setUnknownPlugEnd(0, (char) i);
 
-                // Loop through every character for the second plug
-                for (int j = 97; j < 123; j++) {
+                if (noOfPlugs == 1) {
+                    checkPlugboardSettings(setting, noOfPlugs);
+                }
 
-                    // If j represents a character that's socket isn't already taken
-                    if (start[0] != j && start[1] != j && i != j) {
+                if (noOfPlugs > 1) {
+                    // Loop through every character for the second plug
+                    for (int j = 97; j < 123; j++) {
 
-                        // Set the second plug end to the character represented by j
-                        setting.setUnknownPlugEnd(1, (char) j);
+                        // If j represents a character that's socket isn't already taken
+                        if (start[0] != j && start[1] != j && start[2] != j && i != j) {
 
-                        // Run the enigma machine to test the settings
-                        message = enigmaMachine.start(encodedMessage, setting);
+                            // Set the second plug end to the character represented by j
+                            setting.setUnknownPlugEnd(1, (char) j);
 
-                        // If the message output from the enigma machine contains the known word output it
-                        if (message.contains(searchWord)) {
+                            if (noOfPlugs == 2) {
+                                checkPlugboardSettings(setting, noOfPlugs);
+                            }
 
-                            System.out.println(message);
+                            if (noOfPlugs > 2) {
+                                // Loop through every character for the third plug
+                                for (int k = 97; k < 123; k++) {
 
-                            // Output the plug settings used to get the answer
-                            System.out.print("The plugs were: ");
+                                    // If k represents a character that's socket isn't already taken
+                                    if (start[0] != k && start[1] != k && start[2] != k && k != i && k != j) {
 
-                            // Loop through each plug outputting it's start and end
-                            for (int l = 0; l < noOfPlugs; l++) {
-                                System.out.print(setting.getPlugStart(l) + "," + setting.getPlugEnd(l));
-                                if (l < noOfPlugs - 1) {
-                                    System.out.print(" ");
+                                        // Set the third plug end to the character represented by k
+                                        setting.setUnknownPlugEnd(2, (char) k);
+
+                                        if (noOfPlugs == 3) {
+                                            checkPlugboardSettings(setting, noOfPlugs);
+                                        }
+                                    }
                                 }
                             }
-                            System.out.println();
                         }
                     }
                 }
             }
         }
         System.out.println();
+    }
+
+    /**
+     * Check if a set of settings gives an output containing the search word.
+     * @param setting The test settings for the Enigma Machine.
+     * @param noOfPlugs The number of plugs used to make it easy to output the results.
+     */
+    private void checkPlugboardSettings(EnigmaSetting setting, int noOfPlugs) {
+        // Run the enigma machine to test the settings
+        message = enigmaMachine.start(encodedMessage, setting);
+
+        // If the message output from the enigma machine contains the known word output it
+        if (message.contains(searchWord)) {
+
+            System.out.println(message);
+
+            // Output the plug settings used to get the answer
+            System.out.print("The plugs were: ");
+
+            // Loop through each plug outputting it's start and end
+            for (int l = 0; l < noOfPlugs; l++) {
+                System.out.print(setting.getPlugStart(l) + "," + setting.getPlugEnd(l));
+                if (l < noOfPlugs - 1) {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -195,30 +230,36 @@ class Bombe {
             // Set the type of the first rotor
             setting.setRotorType(0, rotorTypes[i]);
             for (int j = 0; j < 5; j++) {
-                // Set the type of the second rotor
-                setting.setRotorType(1, rotorTypes[j]);
-                for (int k = 0; k < 5; k++) {
-                    // Set the type of the third rotor
-                    setting.setRotorType(2, rotorTypes[k]);
+                // Check that rotor isn't already used by i
+                if (j != i) {
+                    // Set the type of the second rotor
+                    setting.setRotorType(1, rotorTypes[j]);
+                    for (int k = 0; k < 5; k++) {
+                        // Check that rotor isn't already used by j or i
+                        if (k != j && k != i) {
+                            // Set the type of the third rotor
+                            setting.setRotorType(2, rotorTypes[k]);
 
-                    // Run the enigma machine to test the settings
-                    message = enigmaMachine.start(encodedMessage, setting);
+                            // Run the enigma machine to test the settings
+                            message = enigmaMachine.start(encodedMessage, setting);
 
-                    // If the message output from the enigma machine contains the known word output it
-                    if (message.contains(searchWord)) {
+                            // If the message output from the enigma machine contains the known word output it
+                            if (message.contains(searchWord)) {
 
-                        System.out.println(message);
+                                System.out.println(message);
 
-                        // Output the types of rotor used by looping through each
-                        System.out.print("The rotor types were: ");
-                        for (int l = 0; l < 3; l++) {
-                            if (l == 2) {
-                                System.out.print(setting.getRotorType(l));
-                            } else {
-                                System.out.print(setting.getRotorType(l) + ", ");
+                                // Output the types of rotor used by looping through each
+                                System.out.print("The rotor types were: ");
+                                for (int l = 0; l < 3; l++) {
+                                    if (l == 2) {
+                                        System.out.print(setting.getRotorType(l));
+                                    } else {
+                                        System.out.print(setting.getRotorType(l) + ", ");
+                                    }
+                                }
+                                System.out.println();
                             }
                         }
-                        System.out.println();
                     }
                 }
             }

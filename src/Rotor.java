@@ -32,11 +32,16 @@ abstract class Rotor {
     }
 
     /**
+     * @param setName The type of the rotor
+     */
+    void setName(String setName) {
+        name = setName;
+    }
+
+    /**
      * @param type Sets the name of the rotor to it's type.
      */
-    void initialise(String type) {
-        name = type;
-    }
+    abstract void initialise(String type);
 
     /**
      * Overridden by child classes to return the output of the rotor for a given input

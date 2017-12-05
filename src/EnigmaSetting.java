@@ -159,8 +159,16 @@ class EnigmaSetting {
     private void setPlugboardSettings(Boolean unknownPlugEnds) {
         System.out.println("----------- Plugboard ------------");
         System.out.println();
+        if (unknownPlugEnds) {
+            System.out.println("To find unknown plug ends you can add a maximum of 3 plugs.");
+        }
         System.out.print("Enter the number of plugs you want to add: ");
-        noOfPlugs = getInt();
+
+        if (unknownPlugEnds) {
+            noOfPlugs = getUnknownNumberOfPlugs();
+        } else {
+            noOfPlugs = getInt();
+        }
         System.out.println();
 
         // Instantiate the plug start and end arrays to the size given by the user.
@@ -342,4 +350,20 @@ class EnigmaSetting {
             System.err.print("Error: Invalid input choose type from the list above. Input: ");
         }
     }
+
+    /**
+     * @return The number of plugs to test for between 1 and 3.
+     */
+    private int getUnknownNumberOfPlugs() {
+        while (true) try {
+            int input = in.nextInt();
+            if (input >= 1 && input <= 3) {
+                return input;
+            } else throw new Exception();
+        } catch (Exception e) {
+            System.err.print("Error: Invalid input expecting integer between 1 and 3, try again. Input: ");
+            in.next();
+        }
+    }
+
 }

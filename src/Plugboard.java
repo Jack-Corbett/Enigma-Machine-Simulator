@@ -35,8 +35,7 @@ class Plugboard {
 
         // If there has been a clash remove the reference to the object and return false.
         if (clash) {
-            // The plug be deleted in garbage collection
-            newPlug = null;
+            // The plug will be deleted in garbage collection
             return false;
 
         // Otherwise add the plug to the array list and return true
@@ -53,13 +52,13 @@ class Plugboard {
      * @return Character at the other end of the plug or the input character if no plug is connected.
      */
     char substitute(char input) {
+        //Sets the default destination of the character to the inputted character
         char destination = input;
 
-        //Check each plug to see if any are connected to the input character using the encode method
-        for (int i = 0; i < getNumPlugs(); i++) {
-            destination = plugConnections.get(i).encode(input);
+        //Check each plug to see if any are connected to the input character
+        for (Plug plug : plugConnections) {
+            destination = plug.encode(destination);
         }
-
         return destination;
     }
 

@@ -9,13 +9,20 @@ class BasicRotor extends Rotor {
      * @param type The type of rotor which determines the mapping. (I - V)
      */
     BasicRotor(String type) {
+        super.setName(type);     //Calls setName to set the Rotor name to it's type
+        initialise(type);
+    }
+
+    /**
+     * @param type Sets the mapping of the rotor.
+     */
+    @Override
+    void initialise(String type) {
         Integer[] I = {4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9};
         Integer[] II = {0, 9, 3, 10, 18, 8, 17, 20, 23, 1, 11, 7, 22, 19, 12, 2, 16, 6, 25, 13, 15, 24, 5, 21, 14, 4};
         Integer[] III = {1, 3, 5, 7, 9, 11, 2, 15, 17, 19, 23, 21, 25, 13, 24, 4, 8, 22, 6, 0, 10, 12, 20, 18, 16, 14};
         Integer[] IV = {4, 18, 14, 21, 15, 25, 9, 0, 24, 16, 20, 8, 17, 7, 23, 11, 13, 5, 19, 6, 10, 3, 2, 12, 22, 1};
         Integer[] V = {21, 25, 1, 17, 6, 8, 19, 24, 20, 15, 18, 3, 13, 7, 11, 23, 0, 22, 12, 9, 16, 14, 5, 4, 2, 10};
-
-        super.initialise(type);     //Calls initialise to set the Rotor name
 
         //Set the mapping of the rotor determined by the rotor type
         switch (type) {
@@ -45,7 +52,7 @@ class BasicRotor extends Rotor {
      * @return mapping result as an integer
      */
     @Override
-    public Integer substitute(int input) {
+    Integer substitute(int input) {
         return map(mapping, input);
     }
 
@@ -114,8 +121,8 @@ class BasicRotor extends Rotor {
     /**
      * Rotates the rotor by one position.
      */
-    public void rotate() {
-        // Increment the rotor position position
+    void rotate() {
+        // Increment the rotor position
         int newPosition = getPosition() + 1;
         // If it has reached the size of the rotor reset it to 0
         if (newPosition == ROTORSIZE) {
