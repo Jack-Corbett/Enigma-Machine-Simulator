@@ -59,7 +59,7 @@ I also extended the code:
    This approach also enabled strict validation of the user input using casting, condition statements and exceptions to limit the chance of the program crashing for an erroneous accidental input. This can be seen in the Menu
    and Enigma Settings class.
 
-2) I have also validated the input read from the file in EnigmaFile by using regex to remove all characters but the lower case alphabet, as this is used by my machine.
+2) I have also validated the input read from the file in EnigmaFile by using regex to remove spaces and all characters but the lower case alphabet, as this is used by my machine.
 
 3) I also extended the Bombe's functionality by allowing the user to choose how many plug ends to test for from 1 to 3. This makes it much more useful as can now be used for many cases. The approach could also be extended up to the
    maximum of 13 plugs which when combined with the rest of the bombe's test harnesses' for the rotor types and initial positions, would give a somewhat comprehensive bombe. I have left it at 3 as this struck a balance between functionality

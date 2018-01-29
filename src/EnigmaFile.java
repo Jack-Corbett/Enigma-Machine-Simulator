@@ -54,8 +54,10 @@ class EnigmaFile {
             // Loop until the line is empty, appending the read string
             while (line != null) {
                 line = line.toLowerCase();
-                // Replaces all characters that are not from the lower case alphabet with a space
-                line = line.replaceAll("[^a-z\\s]", " ");
+                // Remove all characters that are not from the lower case alphabet
+                line = line.replaceAll("[^a-z\\s]", "");
+                // Remove all spaces
+                line = line.replaceAll(" +","");
                 builder.append(line);
                 line = reader.readLine();
             }

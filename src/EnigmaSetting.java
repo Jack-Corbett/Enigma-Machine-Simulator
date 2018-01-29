@@ -271,7 +271,7 @@ class EnigmaSetting {
     // REFLECTOR
 
     /**
-     *
+     * Output to the command line and take input from the user for the reflector type.
      */
     private void setReflectorSettings() {
         //Reflector
